@@ -12,3 +12,5 @@ Stack:
 Genie: [Highly productive web development with Julia](https://genieframework.com/)
 
 Stipple: https://github.com/GenieFramework/Stipple.jl for UI in JULIA 
+
+![demo](demo.png)
