@@ -1,5 +1,5 @@
 using Genie, Stipple, StippleUI
-using Genie.Requests
+using Genie.Requests, Genie.Renderer
 
 Genie.config.cors_headers["Access-Control-Allow-Origin"]  =  "*"
 Genie.config.cors_headers["Access-Control-Allow-Headers"] = "Content-Type"
@@ -17,7 +17,7 @@ function ui(model)
     row([
       Html.div(class="col-md-12", [
         uploader(label="Upload Image", :auto__upload, :multiple, method="POST",
-        url="http://localhost:8000/upload")
+        url="http://localhost:8000/upload", field__name="img")
       ])
     ])
     ]
@@ -34,7 +34,18 @@ route("/") do
 end
 
 route("/upload", method = POST) do
-  @info filespayload()
+  if infilespayload(:img)
+    @info filename(filespayload(:img))
+    @info filespayload(:img).data
+
+    open("upload/file.jpg", "w") do io
+      write(io, filespayload(:img).data)
+    end
+  else
+    @info "No image uploaded"
+  end
+
+  Genie.Renderer.redirect(:get)
 end
 
 isrunning(:webserver) || up()

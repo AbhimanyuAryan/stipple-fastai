@@ -42,4 +42,8 @@ Thumbs.db
 node_modules/
 
 # tracking DS_Store in root
-../DS_Store
+../.DS_Store
+.DS_Store
+
+# file save
+upload/file.jpg
