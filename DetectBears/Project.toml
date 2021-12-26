@@ -4,7 +4,10 @@ authors = ["Abhimanyu Aryan <8083613+AbhimanyuAryan@users.noreply.github.com>"]
 version = "0.1.0"
 
 [deps]
+DLPipelines = "e6530d7c-7faa-4ede-a0d6-9eff9baad396"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+FastAI = "5d0beca9-ade8-49ae-ad0b-a3cf890e669f"
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
 Inflector = "6d011eab-0732-4556-8808-e463c76bf3b6"
 Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"

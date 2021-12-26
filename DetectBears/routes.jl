@@ -1,10 +1,13 @@
 using Genie, Stipple, StippleUI
 using Genie.Requests, Genie.Renderer
+using FastAI, FileIO, DLPipelines
 
 Genie.config.cors_headers["Access-Control-Allow-Origin"]  =  "*"
 Genie.config.cors_headers["Access-Control-Allow-Headers"] = "Content-Type"
 Genie.config.cors_headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
 Genie.config.cors_allowed_origins = ["*"]
+
+const FILE_PATH = "upload/file.jpg"
 
 @reactive mutable struct Model <: ReactiveModel
 end
@@ -38,14 +41,18 @@ route("/upload", method = POST) do
     @info filename(filespayload(:img))
     @info filespayload(:img).data
 
-    open("upload/file.jpg", "w") do io
-      write(io, filespayload(:img).data)
+    open(FILE_PATH, "w") do io
+      write(FILE_PATH, filespayload(:img).data)
     end
   else
     @info "No image uploaded"
   end
 
   Genie.Renderer.redirect(:get)
+end
+
+route("/predict") do
+  @info DLPipelines.predict(load(FILE_PATH), "imgnet.jld2")
 end
 
 isrunning(:webserver) || up()
